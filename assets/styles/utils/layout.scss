@@ -1,0 +1,155 @@
+.-container {
+  margin: 0 auto;
+  padding: 0 calc(var(--marginX) * 1rem);
+  max-width: calc(var(--maxW) * 1rem);
+
+  &._bg {
+    background: #F6F9FF;
+  }
+
+  @include for-width(-tablet-m) {
+    padding-top: rem(64);
+    padding-bottom: rem(64);
+
+    &._py-sm-s02 {
+      padding-bottom: rem(32);
+    }
+  }
+
+  @include for-width(-tablet-m) {
+    &._py-sm-0 {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  @include for-width(+tablet-m) {
+    padding-top: rem(92);
+    padding-bottom: rem(92);
+
+    &._py-d-0 {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    &._pt-d-0 {
+      padding-top: 0;
+    }
+
+    &._pb-d-0 {
+      padding-bottom: 0;
+    }
+
+    &._pt-d-s02 {
+      padding-top: rem(84);
+    }
+  }
+
+  &._footer {
+    padding-top: rem(44);
+    padding-bottom: rem(44);
+    background: $color__text_dark;
+    border-bottom: rem(1) solid $color__text;
+  }
+
+  &._footer-small {
+    padding-top: rem(1);
+    padding-bottom: rem(24);
+    background: $color__text_dark;
+
+    @include for-width(+tablet-m) {
+      padding-top: rem(24);
+      padding-bottom: rem(24);
+    }
+  }
+}
+
+.-row {
+  display: flex;
+
+  @include for-width(-tablet-m) {
+    flex-direction: column;
+
+    &._py-sm-s03 {
+      margin-top: rem(14);
+      margin-bottom: rem(50);
+    }
+  }
+
+  @include for-width(+tablet-m) {
+    margin: -20px;
+
+    &._start {
+      align-items: flex-start;
+    }
+
+    &._mb-d-2 {
+      margin-bottom: rem(48);
+    }
+
+    > * {
+      margin: 20px;
+    }
+  }
+}
+
+.-col {
+  @include for-width(-tablet-m) {
+    &._sm-mb {
+      margin-bottom: rem(32);
+    }
+  }
+
+  @include for-width(+tablet-m) {
+    padding: calc(var(--marginY) * 1rem) 0;
+    box-sizing: border-box;
+    flex: 0 0 100%;
+
+    &._w-50 {
+      flex-basis: calc((100% / 2) - 40px);
+    }
+
+    &._w-66 {
+      flex-basis: calc((100% / 3 * 2) - 40px);
+    }
+
+    &._w-33 {
+      flex-basis: calc((100% / 3 * 1) - 40px);
+    }
+
+    &._w-25 {
+      flex-basis: calc((100% / 4 * 1) - 40px);
+    }
+  }
+}
+
+.-flex {
+  display: flex;
+}
+
+.-flex-divider {
+  flex: 1 1 auto;
+}
+
+.-shadow {
+  box-shadow: 0 rem(24) rem(32) rem(-24) rgba(0,0,0,0.3);
+}
+
+@include for-width(-tablet-m) {
+  .-sm-order-0 {
+    order: 0;
+  }
+  .-sm-order-1 {
+    order: 1;
+  }
+  .-sm-order-2 {
+    order: 2;
+  }
+}
+
+@mixin hide_scrollbars {
+  scrollbar-width: none; // FF
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
