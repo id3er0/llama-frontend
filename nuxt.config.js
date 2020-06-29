@@ -145,6 +145,7 @@ module.exports = {
       services: {
         // auth: true,
         firestore: true,
+        storage: true,
       },
     }],
     '@nuxtjs/dayjs',

@@ -1,10 +1,9 @@
 <template lang="pug">
-  .p-layout
+  div
+    Modal
     Auth(v-if="!authorized")
     template(v-else)
-      .p-main
-        nuxt
-    Modal
+      nuxt
 </template>
 
 <script>

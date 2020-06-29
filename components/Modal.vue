@@ -1,20 +1,24 @@
 <template lang="pug">
-  .b-modal(v-if="show")
-    .b-modal__outline(
-      @click="show = false"
-    )
-    component(
-      :is="show"
-    )
+  .modal-overlay(v-if="show")
+    .modal
+      img.modal-x(
+        src='/images/x.svg'
+        @click="show = false"
+      )
+      component(
+        :is="show"
+      )
 </template>
 
 <script>
-  // import Example from '~/components/modals/Example';
+  import NewPost from '~/components/modal/NewPost';
+  import Post from '~/components/modal/Post';
   import { mapFields } from 'vuex-map-fields';
 
   export default {
     components: {
-      // Example,
+      NewPost,
+      Post,
     },
     computed: {
       ...mapFields('modal', [
