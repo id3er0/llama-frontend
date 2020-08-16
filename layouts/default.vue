@@ -12,7 +12,7 @@
 
   export default {
     components: {
-      Auth: () => import('~/components/Auth'),
+      Login: () => import('~/components/auth/Login'),
       Modal: () => import('~/components/Modal'),
     },
     computed: {

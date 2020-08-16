@@ -143,7 +143,7 @@ module.exports = {
         // measurementId: '<measurementId>',
       },
       services: {
-        // auth: true,
+        auth: true,
         firestore: true,
         storage: true,
       },
