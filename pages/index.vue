@@ -30,7 +30,3 @@
     components: {Section},
   };
 </script>
-
-<style lang="scss">
-  @import '~/assets/styles/index';
-</style>
