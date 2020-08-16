@@ -1,5 +1,6 @@
 import { Map as immutableMap } from 'immutable';
 import { getField, updateField } from 'vuex-map-fields';
+import isEmail from '../utils/isEmail';
 // import { debounce, throttle } from 'throttle-debounce';
 // import ky from 'ky';
 
@@ -22,6 +23,13 @@ export const state = () => STATE.toJS();
 
 export const getters = {
   getField,
+  hasErrors: state => Object.values(state.errors).filter(value => !!value).length > 0,
+  isEmail: state => isEmail(state.payload.email),
+  isDisabled: (state, getters) =>
+    getters.hasErrors
+    || !state.payload.name
+    || !getters.isEmail
+    || !state.payload.password,
 };
 
 export const mutations = {

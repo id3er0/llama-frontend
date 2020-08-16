@@ -31,6 +31,7 @@
           span.button.button-primary.disabled(
             tabindex="-1"
             @click="createUser"
+            :disabled="isDisabled"
           ) Sign Up
         button.button-wrapper
           nuxt-link.button.button-secondary(
@@ -42,7 +43,7 @@
 
 <script>
   import { mapFields } from 'vuex-map-fields';
-  import { mapActions } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
 
   export default {
     name: 'Signup',
@@ -58,6 +59,9 @@
         'errors.nameError',
         'errors.emailError',
         'errors.passwordError',
+      ]),
+      ...mapGetters('signup', [
+        'isDisabled',
       ]),
     },
     methods: {
