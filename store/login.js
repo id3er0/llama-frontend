@@ -41,6 +41,7 @@ export const actions = {
     context.commit('updateField', {path: 'errors', value: STATE.toJS().errors});
     try {
       await this.$fireAuth.sendPasswordResetEmail(context.state.payload.email);
+      context.commit('modal/updateField', {path: 'show', value: 'PasswordResetEmailSent'}, {root: true});
     } catch (error) {
       console.warn('xxx emailPassword - error:', error);
       context.commit('updateField', {path: 'errors.emailError', value: {message: error.message}});
