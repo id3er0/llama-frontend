@@ -5,10 +5,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
 
-.sisu-page > *:first-child {
-  margin-top: -100px;
+  & > *:first-child {
+    margin-top: -100px;
+  }
 }
 
 .email-me-button {
@@ -20,17 +20,25 @@
   align-items: center;
   padding: 5px 9px;
   border-radius: 4px;
-  cursor: pointer;
+  outline: none;
+  border: none;
   transition: background 200ms;
-}
 
-.email-me-button:hover {
-  background: white;
-}
+  &:not([disabled]) {
+    cursor: pointer;
+    &:hover {
+      background: white;
+    }
+  }
 
-.email-me-button img {
-  width: 15px;
-  margin-right: 5px;
+  &[disabled] {
+    opacity: 0.5;
+  }
+
+  & img {
+    width: 15px;
+    margin-right: 5px;
+  }
 }
 
 .input:focus + .email-me-button {

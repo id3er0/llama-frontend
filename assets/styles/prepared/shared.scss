@@ -38,12 +38,12 @@ button:active {
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 10px;
-}
 
-.label span {
-  opacity: 0.2;
-  font-size: 0.9em;
-  margin-left: 8px;
+  span {
+    opacity: 0.2;
+    font-size: 0.9em;
+    margin-left: 8px;
+  }
 }
 
 .label-inline {
@@ -57,42 +57,38 @@ button:active {
 
 .input,
 .textarea {
-  border: none;
   padding: 12px 18px;
   font-size: 16px;
   border-radius: var(--border-radius);
   background: #f3f3f4;
   border: 1px solid #f3f3f4;
   outline: none;
-}
+  box-sizing: border-box;
 
-.input:hover,
-.textarea:hover {
-  transition: all 250ms;
-  box-shadow: 0 0 0px 6px #e7e1ff99;
-  border-color: #d0d0d0b3;
-  background: white;
-}
+  &:hover {
+    transition: all 250ms;
+    box-shadow: 0 0 0px 6px #e7e1ff99;
+    border-color: #d0d0d0b3;
+    background: white;
+  }
 
-.input:active,
-.textarea:active {
-  position: relative;
-  top: 1px;
-  transform: scale(1);
-}
+  &:active {
+    position: relative;
+    top: 1px;
+    transform: scale(1);
+  }
 
-.input:focus,
-.textarea:focus {
-  border-color: var(--primary-color);
-  background: white;
-  box-shadow: 0 0 0px 6px #e7e1ff99;
-}
+  &:focus {
+    border-color: var(--primary-color);
+    background: white;
+    box-shadow: 0 0 0px 6px #e7e1ff99;
+  }
 
-.input.error,
-.textarea.error {
-  border-color: #fc3c83;
-  background: white;
-  box-shadow: 0 0 0px 5px #ffe1f499;
+  &.error {
+    border-color: #fc3c83;
+    background: white;
+    box-shadow: 0 0 0px 5px #ffe1f499;
+  }
 }
 
 .textarea {
@@ -108,29 +104,29 @@ button:active {
   cursor: pointer;
   border-radius: 20px;
   transition: all ease 0.3s;
-}
 
-.toggle-control.active {
-  background-color: hsla(253, 100%, 93%, 1);
-}
+  &.active {
+    background-color: hsla(253, 100%, 93%, 1);
+  }
 
-.toggle-control:after {
-  position: absolute;
-  content: "";
-  display: block;
-  width: 14px;
-  height: 14px;
-  border-radius: 100%;
-  top: 4px;
-  left: 4px;
-  background-color: #9e9ea7;
-  transition: all ease 0.3s;
-}
+  &::after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 100%;
+    top: 4px;
+    left: 4px;
+    background-color: #9e9ea7;
+    transition: all ease 0.3s;
+  }
 
-.toggle-control.active:after {
-  left: auto;
-  right: 4px;
-  background-color: var(--primary-color);
+  &.active::after {
+    left: auto;
+    right: 4px;
+    background-color: var(--primary-color);
+  }
 }
 
 .button-wrapper,
@@ -140,23 +136,23 @@ button:active {
 
 .button-wrapper {
   padding: 0;
-}
 
-.button-wrapper:focus > .button:after {
-  display: block;
-  content: "";
-  position: absolute;
-  top: -3px;
-  bottom: -5px;
-  left: -4px;
-  right: -4px;
-  box-shadow: 0 0 0px 3px #d1bcfe;
-  border-radius: 10px;
-}
+  &:focus > .button:after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: -3px;
+    bottom: -5px;
+    left: -4px;
+    right: -4px;
+    box-shadow: 0 0 0px 3px #d1bcfe;
+    border-radius: 10px;
+  }
 
-.button-wrapper:active > .button:after {
-  top: -4px;
-  bottom: -4px;
+  &:active > .button:after {
+    top: -4px;
+    bottom: -4px;
+  }
 }
 
 .button {
@@ -172,18 +168,19 @@ button:active {
   transition: transform 200ms;
   border: 1px #dbdbdb solid;
   font-size: 0.95rem;
+  text-decoration: none;
+
+  &.button-white {
+    background: white;
+    border-color: #dbdbdb;
+  }
+
+  &:not(.busy):not([disabled]):hover {
+    transform: scale(1.025);
+  }
 }
 
-.button.button-white {
-  background: white;
-  border-color: #dbdbdb;
-}
-
-.button:not(.busy):not(.disabled):hover {
-  transform: scale(1.025);
-}
-
-.button-wrapper:active .button:not(.busy):not(.disabled) {
+.button-wrapper:active .button:not(.busy):not([disabled]) {
   position: relative;
   top: 2px;
   box-shadow: none;
@@ -203,21 +200,27 @@ button:active {
   color: white;
   border: none;
   padding: 12px 24px;
-}
 
-.button-primary.busy {
-  cursor: progress;
-  animation: pulse 2s infinite;
-  opacity: 0.8;
-  box-shadow: 0px 3px 6px -1px hsla(260, 97%, 10%, 0),
-    inset 0px 3px 8px 1px hsla(0, 0%, 100%, 0.35);
-}
+  &.busy {
+    cursor: progress;
+    animation: pulse 2s infinite;
+    opacity: 0.8;
+    box-shadow: 0px 3px 6px -1px hsla(260, 97%, 10%, 0),
+      inset 0px 3px 8px 1px hsla(0, 0%, 100%, 0.35);
+  }
 
-.button-primary.disabled {
-  cursor: default;
-  opacity: 0.5;
-  box-shadow: 0px 3px 6px -1px hsla(260, 97%, 10%, 0),
+  &[disabled] {
+    cursor: default;
+    opacity: 0.5;
+    box-shadow: 0px 3px 6px -1px hsla(260, 97%, 10%, 0),
+      inset 0px 3px 8px 1px hsla(0, 0%, 100%, 0.35);
+  }
+
+  &.danger {
+    background: #fc3c83;
+    box-shadow: 0px 3px 6px -1px hsla(320, 97%, 10%, 0.37),
     inset 0px 3px 8px 1px hsla(0, 0%, 100%, 0.35);
+  }
 }
 
 @keyframes pulse {
@@ -234,12 +237,6 @@ button:active {
   }
 }
 
-.button-primary.danger {
-  background: #fc3c83;
-  box-shadow: 0px 3px 6px -1px hsla(320, 97%, 10%, 0.37),
-    inset 0px 3px 8px 1px hsla(0, 0%, 100%, 0.35);
-}
-
 .button-secondary {
   background: var(--secondary-color);
   box-shadow: 0px 3px 6px -1px hsla(0, 0%, 0%, 0.14),
@@ -254,11 +251,11 @@ button:active {
   color: hsl(260, 93%, 35%);
   box-shadow: 0px 3px 6px -1px hsla(0, 0%, 0%, 0.22);
   background: #f9f9f9;
-}
 
-.button-hollow.danger {
-  border: 3px solid #fc3c83;
-  color: #fc3c83;
+  &.danger {
+    border: 3px solid #fc3c83;
+    color: #fc3c83;
+  }
 }
 
 .button-simple {
@@ -366,10 +363,10 @@ button:active {
 .form-error {
   color: #fc3c83;
   margin-bottom: 35px;
-}
 
-.form-error + .form-error {
-  margin-top: -30px;
+  & + .form-error {
+    margin-top: -30px;
+  }
 }
 
 .form-buttons {
