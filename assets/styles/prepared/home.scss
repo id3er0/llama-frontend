@@ -51,35 +51,36 @@
   position: relative;
   display: flex;
   align-items: center;
+  outline: none;
   cursor: pointer;
-}
-
-.owner-name-wrapper {
-  margin-bottom: 40px;
 }
 
 .team-owner-name-wrapper {
   margin-bottom: 0;
+
+  img {
+    width: 20px;
+    margin-left: 8px;
+  }
 }
 
-.owner-name-wrapper .name {
-  margin-bottom: 0;
-}
+.owner-name-wrapper {
+  margin-bottom: 40px;
 
-.owner-name-wrapper img {
-  opacity: 0;
-  width: 25px;
-  margin-left: 10px;
-  transition: opacity 300ms ease;
-}
+  .name {
+    margin-bottom: 0;
+  }
 
-.team-owner-name-wrapper img {
-  width: 20px;
-  margin-left: 8px;
-}
+  img {
+    opacity: 0;
+    width: 25px;
+    margin-left: 10px;
+    transition: opacity 300ms ease;
+  }
 
-.owner-name-wrapper:hover img {
-  opacity: 1;
+  &:hover img {
+    opacity: 1;
+  }
 }
 
 .human-has-updates {
@@ -109,14 +110,14 @@
   box-shadow: 0px 3px 6px -1px hsla(0, 0%, 0%, 0.14);
   cursor: pointer;
   transition: transform 300ms;
-}
 
-.post-thumb:hover {
-  transform: scale(1.05);
-}
+  &:hover {
+    transform: scale(1.05);
+  }
 
-.post-thumb:active {
-  transform: scale(0.95);
+  &:active {
+    transform: scale(0.95);
+  }
 }
 
 .post-thumb-image {
@@ -125,7 +126,7 @@
   bottom: 8px;
   left: 8px;
   right: 8px;
-  background-size: cover;
+  background: center / cover no-repeat;
   border-radius: 8px;
   transition: opacity 500ms;
 }
@@ -157,12 +158,12 @@
   align-items: center;
   font-weight: 500;
   cursor: pointer;
-}
 
-.post-thumb-more-button span {
-  position: relative;
-  top: 1px;
-  margin-right: 2px;
+  span {
+    position: relative;
+    top: 1px;
+    margin-right: 2px;
+  }
 }
 
 .post-thumb-add-button {
@@ -178,23 +179,23 @@
   font-size: 42px;
   font-weight: 500;
   cursor: pointer;
-}
 
-.post-thumb-add-button img {
-  width: 40px;
+  img {
+    width: 40px;
+  }
 }
 
 .post-thumb-description {
   white-space: nowrap;
   position: absolute;
-  bottom: 6px;
+  bottom: 0;
   overflow: hidden;
   width: 100%;
   text-overflow: ellipsis;
   padding: 11px 20px 6px 20px;
   box-sizing: border-box;
   background: rgba(255, 255, 255, 0.9);
-  border-radius: 0 0 12px 12px;
+  border-radius: 0 0 8px 8px;
   font-size: 14px;
   transition: all ease 300ms;
   max-height: 120px;
@@ -225,13 +226,17 @@
 
 .post {
   width: 600px;
+  height: calc(100vh - 200px);
+  max-height: 720px;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .post-image {
+  flex: 1 1 auto;
   width: 600px;
-  height: 600px;
+  max-height: 600px;
   border-radius: 16px;
   background-size: cover;
   background-position: center;

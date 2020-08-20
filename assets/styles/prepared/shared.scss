@@ -67,7 +67,7 @@ button:active {
 
   &:hover {
     transition: all 250ms;
-    box-shadow: 0 0 0px 6px #e7e1ff99;
+    box-shadow: 0 0 0 6px #e7e1ff99;
     border-color: #d0d0d0b3;
     background: white;
   }
@@ -81,18 +81,24 @@ button:active {
   &:focus {
     border-color: var(--primary-color);
     background: white;
-    box-shadow: 0 0 0px 6px #e7e1ff99;
+    box-shadow: 0 0 0 6px #e7e1ff99;
   }
 
   &.error {
     border-color: #fc3c83;
     background: white;
-    box-shadow: 0 0 0px 5px #ffe1f499;
+    box-shadow: 0 0 0 5px #ffe1f499;
   }
 }
 
 .textarea {
   resize: none;
+}
+
+.input-hidden {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
 }
 
 .toggle-control {
