@@ -1,0 +1,35 @@
+:root {
+  --marginX: #{remX(16)};
+  --marginY: #{remX(16)};
+
+  @include for-width(+small-m) {
+    --marginX: #{remX(24)};
+  }
+
+  @include for-width(+desktop-s) {
+    --marginX: #{remX(120)};
+  }
+}
+
+html {
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: $color__text;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #fff;
+
+  &._no-scroll {
+    @include for-width(-desktop-s) {
+      height: 100vh;
+      overflow: hidden;
+    }
+  }
+}
+
+* {
+  box-sizing: border-box;
+}

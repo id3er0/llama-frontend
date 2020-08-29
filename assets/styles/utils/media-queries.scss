@@ -1,0 +1,42 @@
+$mqs: (
+  //name         //breakpoint
+  'small':       320,
+  'small-m':     480,
+  'tablet-s':    640,
+  'tablet':      768,
+  'tablet-m':    1024,
+  'desktop-s':   1280,
+  'desktop':     1440,
+  'desktop-m':   1650,
+  'desktop-l':   1920,
+);
+
+@mixin for-width($size, $size2: null) {
+  @each $name, $bp in $mqs {
+    $max: calc(#{em($bp)} - #{em(1)});
+    $min: em($bp);
+
+    @if $size == -#{$name} {
+      @media (max-width: $max) { @content; }
+    }
+    @if $size == +#{$name} {
+      @media (min-width: $min) { @content; }
+    }
+    @if $size2 == #{$name} {
+      @each $name, $bp in $mqs {
+        $min: em($bp);
+        @if $size == #{$name} {
+          @media (min-width: $min) and (max-width: $max)  { @content; }
+        }
+      }
+    }
+  }
+}
+
+/*
+._example {
+  @include for-width(-desktop) {
+    opacity: 0.5;
+  };
+}
+*/

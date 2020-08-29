@@ -1,0 +1,19 @@
+# dependencies
+node_modules
+
+# Configs
+.env.development
+.env.production
+
+# logs
+npm-debug.log
+
+# Nuxt build
+.nuxt
+
+# Nuxt generate
+dist
+
+# Vercel
+.now
+.vercel

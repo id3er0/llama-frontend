@@ -1,0 +1,50 @@
+.sisu-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & > *:first-child {
+    margin-top: -100px;
+  }
+}
+
+.email-me-button {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  padding: 5px 9px;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  transition: background 200ms;
+
+  &:not([disabled]) {
+    cursor: pointer;
+    &:hover {
+      background: white;
+    }
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+  }
+
+  & img {
+    width: 15px;
+    margin-right: 5px;
+  }
+}
+
+.input:focus + .email-me-button {
+  background: white;
+}
+
+.somebody-invites {
+  margin-bottom: 50px;
+}

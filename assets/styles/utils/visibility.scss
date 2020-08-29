@@ -1,0 +1,14 @@
+@each $name, $bp in $mqs {
+  .-hide-on-#{$name} {
+    @include for-width(+#{$name}) {
+      display: none;
+    }
+  }
+
+  .-show-on-#{$name} {
+    //@include for-width(-#{map-get-prev($mqs, $name)}) {
+    @include for-width(-#{$name}) {
+      display: none;
+    }
+  }
+}
