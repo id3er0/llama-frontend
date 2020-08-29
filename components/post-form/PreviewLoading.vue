@@ -1,5 +1,8 @@
 <template lang="pug">
-  .post-image.busy(:style="{'background-image': `url(${preview})`}")
+  .post-image(
+    :class="{busy: loading['post-image-upload']}"
+    :style="{'background-image': `url(${preview})`}"
+  )
 </template>
 
 <script>
@@ -10,6 +13,9 @@
     computed: {
       ...mapFields('post-form', [
         'preview',
+      ]),
+      ...mapFields('loading', [
+        'loading',
       ]),
     },
   };

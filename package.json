@@ -34,7 +34,7 @@
   "devDependencies": {
     "@babel/runtime-corejs3": "^7.10.3",
     "@nuxtjs/google-analytics": "^2.2.3",
-    "@nuxtjs/now-builder": "^0.17.1",
+    "@nuxtjs/now-builder": "^0.17.2",
     "@nuxtjs/style-resources": "^1.0.0",
     "babel-eslint": "^10.0.1",
     "core-js": "^3.6.5",

@@ -1,6 +1,7 @@
 import { Map as immutableMap } from 'immutable';
 import { getField, updateField } from 'vuex-map-fields';
 import isEmail from '../utils/isEmail';
+import objectValue from '../utils/objectValue';
 // import { debounce, throttle } from 'throttle-debounce';
 // import ky from 'ky';
 
@@ -35,6 +36,7 @@ export const getters = {
 export const mutations = {
   updateField,
   clean(state) {
+    console.log('xxx signup.js - clean');
     Object.assign(state, {
       ...STATE.toJS(),
       date: Date.now(),
@@ -44,16 +46,20 @@ export const mutations = {
 
 export const actions = {
   async createUser(context) {
+    console.log('xxx signup.js - createUser - run');
+    context.commit('loading/setStatus', {name: 'create-user', value: true}, {root: true});
     context.commit('updateField', {path: 'errors', value: STATE.toJS().errors});
     try {
       await this.$fireAuth.createUserWithEmailAndPassword(
         context.state.payload.email,
         context.state.payload.password,
       );
+      const displayName = context.state.payload.name;
       const user = await this.$fireAuth.currentUser;
-      await user.updateProfile({
-        displayName: context.state.payload.name,
-      });
+      console.log('xxx signup.js - createUser - user:', user);
+      await user.updateProfile({displayName});
+      await context.dispatch('user/createProfile', {displayName}, {root: true});
+      this.$router.push('/');
     } catch (error) {
       console.warn('xxx createUser - error:', error);
 
@@ -69,5 +75,6 @@ export const actions = {
           break;
       }
     }
+    context.commit('loading/setStatus', {name: 'create-user', value: false}, {root: true});
   },
 };

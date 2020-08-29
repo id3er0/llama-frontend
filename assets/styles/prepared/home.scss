@@ -27,6 +27,15 @@
   align-items: center;
 }
 
+.debug {
+  border-top: 1px solid #e0e0e0;
+  padding: 20px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .directory {
   display: flex;
   flex-direction: column;
@@ -55,15 +64,6 @@
   cursor: pointer;
 }
 
-.team-owner-name-wrapper {
-  margin-bottom: 0;
-
-  img {
-    width: 20px;
-    margin-left: 8px;
-  }
-}
-
 .owner-name-wrapper {
   margin-bottom: 40px;
 
@@ -80,6 +80,15 @@
 
   &:hover img {
     opacity: 1;
+  }
+}
+
+.team-owner-name-wrapper {
+  margin-bottom: 0;
+
+  img {
+    width: 20px;
+    margin-left: 8px;
   }
 }
 
@@ -225,26 +234,26 @@
 }
 
 .post {
-  width: 600px;
-  height: calc(100vh - 200px);
-  max-height: 720px;
+  width: 660px;
+  max-width: calc(100vw - 140px);
+  height: 730px;
+  max-height: calc(100vh - 200px);
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
 }
 
 .post-image {
   flex: 1 1 auto;
-  width: 600px;
-  max-height: 600px;
+  width: 100%;
   border-radius: 16px;
   background-size: cover;
   background-position: center;
 }
 
 .post-image-dropzone {
-  width: 600px;
-  height: 600px;
+  flex: 1 1 auto;
+  width: 100%;
   border-radius: 16px;
   border: 2px dashed #afafaf;
   display: flex;

@@ -1,6 +1,7 @@
 <template lang="pug">
   .sisu-page
     .form
+      InviteBlock
       .form-error(
         v-for="(error, index) in errors"
         :key="index"
@@ -27,13 +28,14 @@
           type="password"
         )
       .form-buttons.buttons
-        button.button-wrapper
-          span.button.button-primary.disabled(
+        .button-wrapper
+          button.button.button-primary.disabled(
+            :class="{busy: loading['create-user']}"
             tabindex="-1"
             @click="createUser"
-            :disabled="isDisabled"
+            :disabled="isDisabled || loading['create-user']"
           ) Sign Up
-        button.button-wrapper
+        .button-wrapper
           nuxt-link.button.button-secondary(
             tabindex="-1"
             :to="{name: 'login'}"
@@ -44,13 +46,15 @@
 <script>
   import { mapFields } from 'vuex-map-fields';
   import { mapActions, mapGetters } from 'vuex';
+  import InviteBlock from '~/components/auth/InviteBlock';
 
   export default {
     name: 'Signup',
-    async created() {
-      console.log('xxx:', await this.$fireAuth.currentUser);
-    },
+    components: {InviteBlock},
     computed: {
+      ...mapFields('loading', [
+        'loading',
+      ]),
       ...mapFields('signup', [
         'payload.name',
         'payload.email',

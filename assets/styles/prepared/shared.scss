@@ -308,14 +308,18 @@ button:active {
   width: 32px;
   height: 32px;
   margin-right: 12px;
-  background-size: cover;
+  background: center / cover no-repeat;
+}
+
+.team-logo-form-row {
+  display: flex;
 }
 
 .team-logo-form-preview {
   width: 42px;
   height: 42px;
   margin-right: 12px;
-  background-size: cover;
+  background: center / cover no-repeat;
 }
 
 .sticky-bar .team-name {

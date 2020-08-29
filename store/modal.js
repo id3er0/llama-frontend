@@ -15,6 +15,7 @@ export const getters = {
 export const mutations = {
   updateField,
   clean(state) {
+    console.log('xxx modal.js - clean');
     Object.assign(state, {
       ...STATE.toJS(),
       date: Date.now(),

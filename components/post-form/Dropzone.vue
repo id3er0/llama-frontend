@@ -1,16 +1,23 @@
 <template lang="pug">
-  label.post-image-dropzone.active
+  label.post-image-dropzone(
+    :class="{active: dragOver}"
+    @dragleave="fileDragOut"
+    @dragover="fileDragIn"
+    @drop="handleFileDrop"
+  )
     input.input(
       type="file"
       :multiple="false"
       accept="image/jpeg"
-      @change="upload($event.target.files)"
+      @change="handleFileInput"
     )
     img(ref="preview")
     div Drag and Drop
     div or
     div.button-wrapper.post-image-select-file
-      span.button.button-secondary.button-white(tabindex='-1') Select Image
+      span.button.button-secondary.button-white(
+        tabindex="-1"
+      ) Select Image
 </template>
 
 <script>
@@ -19,28 +26,41 @@
 
   export default {
     name: 'PostFormDropzone',
+    data: () => ({
+      files: [],
+      dragOver: false,
+    }),
     computed: {
       ...mapFields('post-form', [
-        'file',
         'preview',
       ]),
     },
     methods: {
       ...mapActions('post-form', [
-        'uploadFile'
+        'uploadFile',
       ]),
-      upload(file) {
-        this.file = file[0];
-        this.preview = URL.createObjectURL(this.file);
-        this.uploadFile();
-
-        // const reader = new FileReader();
-        // reader.onload = event => {
-        //   // get loaded data and render thumbnail.
-        //   this.$refs.preview.src = event.target.result;
-        // };
-        // // read the image file as a data URL.
-        // reader.readAsDataURL(this.file);
+      handleFileDrop(event) {
+        let files = event.dataTransfer.files;
+        console.log('xxx handleFileDrop - files:', files);
+        if (!files) {
+          return;
+        }
+        this.uploadFile(files);
+        this.dragOver = true;
+      },
+      handleFileInput(event) {
+        let files = event.target.files;
+        files = event.target.files;
+        if (!files) {
+          return;
+        }
+        this.uploadFile(files);
+      },
+      fileDragIn() {
+        this.dragOver = true;
+      },
+      fileDragOut() {
+        this.dragOver = false;
       },
     },
   };

@@ -1,6 +1,7 @@
 <template lang="pug">
   .sisu-page
     .form
+      InviteBlock
       .form-error(
         v-for="(error, index) in errors"
         :key="index"
@@ -34,16 +35,17 @@
             img(src="/images/mail.svg")
             span email me
       .form-buttons.buttons
-        button.button-wrapper
+        .button-wrapper
           nuxt-link.button.button-secondary(
             tabindex="-1"
             :to="{name: 'signup'}"
           ) Sign Up
-        button.button-wrapper
-          span.button.button-primary(
+        .button-wrapper
+          button.button.button-primary(
+            :class="{busy: loading['signin']}"
             tabindex="-1"
+            :disabled="isDisabled || loading['signin']"
             @click="signIn"
-            :disabled="isDisabled"
           ) Log In
 </template>
 
@@ -51,10 +53,15 @@
 <script>
   import { mapFields } from 'vuex-map-fields';
   import { mapGetters, mapActions } from 'vuex';
+  import InviteBlock from '~/components/auth/InviteBlock';
 
   export default {
     name: 'Login',
+    components: {InviteBlock},
     computed: {
+      ...mapFields('loading', [
+        'loading',
+      ]),
       ...mapFields('login', [
         'payload.email',
         'payload.password',

@@ -17,6 +17,7 @@ export const getters = {
 export const mutations = {
   updateField,
   clean(state) {
+    console.log('xxx loading.js - clean');
     Object.assign(state, {
       ...STATE.toJS(),
       date: Date.now(),

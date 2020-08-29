@@ -1,32 +1,55 @@
 <template lang="pug">
   div
     div
-      .sticky-bar
-        .owner-name-wrapper.team-owner-name-wrapper
-          .team-logo(style='background-image: url(https://source.unsplash.com/random?100);')
-          .team-name Teamname
-          img(src='/images/edit.svg')
-        .sticky-bar-buttons.buttons
-          button.button-wrapper
-            span.button.button-secondary.button-white(tabindex='-1') Log out
-          button.button-wrapper
-            span.button.button-hollow(tabindex='-1', style='width: 60px;') Invite
+      NavBar
       .directory
-        .input-wrapper.input-search-wrapper
-          img(src='/images/magnifying_glass.svg')
-          input#email.input.input-search(type='text', autocomplete='off', spellcheck='false', placeholder='Search')
-        div(style='display: flex; margin-top: 30px; justify-content: center;')
-          .toggle-control(style='margin-right: 12px;')
-          .label-inline Show updates only
-        Section
-    .footer
-      div llamaspace
-      .button.button-simple Contact
+        Search
+        UpdatesOnlyToggle
+        div(
+          v-if="Array.isArray(teamPostsGrouped) && teamPostsGrouped.length > 0"
+          :key="date + updatesOnly"
+        )
+          PostsSection(
+            v-for="(userPosts, index) in teamPostsGrouped"
+            :key="`${index}_${userPosts.lastPostDate}`"
+            :user="userPosts"
+          )
+        div(v-else)
+          | Empty
+    Footer
+    Debug
 </template>
 
 <script>
-  import Section from '~/components/images/Section';
+  import NavBar from '~/components/NavBar';
+  import Search from '~/components/Search';
+  import UpdatesOnlyToggle from '~/components/UpdatesOnlyToggle';
+  import PostsSection from '~/components/images/PostsSection';
+  import Footer from '~/components/Footer';
+  import Debug from '~/components/Debug';
+  import {mapGetters} from 'vuex';
+  import {mapFields} from 'vuex-map-fields';
+
   export default {
-    components: {Section},
+    name: 'Home',
+    components: {
+      NavBar,
+      Search,
+      UpdatesOnlyToggle,
+      PostsSection,
+      Footer,
+      Debug,
+    },
+    computed: {
+      ...mapGetters('team', [
+        'teamPostsGrouped'
+      ]),
+      ...mapFields('team', [
+        'updatesOnly',
+      ]),
+      ...mapFields('posts', [
+        'date',
+      ]),
+    },
   };
 </script>

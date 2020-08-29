@@ -12,18 +12,27 @@
   import PostFormText from '~/components/post-form/Text';
   import PostFormActions from '~/components/post-form/Actions';
   import { mapFields } from 'vuex-map-fields';
+  import { mapMutations } from 'vuex';
 
   export default {
-    name: 'NewPost',
+    name: 'PostEdit',
     components: {
       PostFormDropzone,
       PostFormPreviewLoading,
       PostFormText,
       PostFormActions,
     },
+    destroyed() {
+      this.clean();
+    },
     computed: {
       ...mapFields('post-form', [
         'preview',
+      ]),
+    },
+    methods: {
+      ...mapMutations('post-form', [
+        'clean',
       ]),
     },
   };

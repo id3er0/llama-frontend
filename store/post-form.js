@@ -1,14 +1,18 @@
 import { Map as immutableMap } from 'immutable';
 import { getField, updateField } from 'vuex-map-fields';
-import random from '../utils/random';
-// import { debounce, throttle } from 'throttle-debounce';
-// import ky from 'ky';
+import random from '~/utils/random';
+import objectValue from '~/utils/objectValue';
 
 const STATE = immutableMap({
   date: Date.now(),
-  image: null,
+  id: null,
   preview: null,
-  imageUrl: null,
+  image: {
+    bucket: null,
+    fullPath: null,
+    name: null,
+    url: null,
+  },
   text: null,
 });
 
@@ -21,6 +25,7 @@ export const getters = {
 export const mutations = {
   updateField,
   clean(state) {
+    console.log('xxx post-form.js - clean');
     Object.assign(state, {
       ...STATE.toJS(),
       date: Date.now(),
@@ -29,45 +34,78 @@ export const mutations = {
 };
 
 export const actions = {
-  async uploadFile(context) {
-    const { file } = context.state;
+  async uploadFile(context, files) {
+    const file = objectValue(files, '0');
     if (!file) {
-      console.error('xxx uploadFile - no file!');
+      console.error('xxx post-form.js - uploadFile - no file!');
     }
-    const storageRef = this.$fireStorage.ref().child(`${random()}-${random()}/${random()}-${file.name}`);
+    context.commit('updateField', {path: 'preview', value: URL.createObjectURL(file)});
+    context.commit('loading/setStatus', {name: 'post-image-upload', value: true}, {root: true});
+    const fileNameExt = file.name.split('.').pop().toLowerCase();
+    const filePath = `posts/${random()}-${random()}.${fileNameExt}`;
+    const storageRef = this.$fireStorage.ref().child(filePath);
     try {
       const snapshot = await storageRef.put(file);
-      console.log('xxx uploadFile - snapshot:', snapshot);
+      console.log('xxx post-form.js - uploadFile - snapshot:', snapshot);
       const url = await storageRef.getDownloadURL();
-      console.log('xxx uploadFile - url:', url);
-      context.commit('updateField', {path: 'imageUrl', value: url});
+      console.log('xxx post-form.js - uploadFile - url:', url);
+      context.commit('updateField', {
+        path: 'image', value: {
+          bucket: objectValue(snapshot, 'metadata.bucket'),
+          fullPath: objectValue(snapshot, 'metadata.fullPath'),
+          name: objectValue(snapshot, 'metadata.name'),
+          url,
+        },
+      });
     } catch (error) {
-      console.log('xxx uploadFile - error', error.message);
+      console.log('xxx post-form.js - uploadFile - error', error.message);
+    }
+    context.commit('loading/setStatus', {name: 'post-image-upload', value: false}, {root: true});
+  },
+  async submitPostForm(context) {
+    if (context.state.id) {
+      context.dispatch('update');
+    } else {
+      context.dispatch('create');
     }
   },
   async create(context) {
-    // context.commit('panel/loading/setStatus', {name: 'page', value: true}, {root: true});
+    context.commit('loading/setStatus', {name: 'create-post', value: true}, {root: true});
     const {
-      imageUrl,
+      image,
       text,
     } = context.state;
     const doc = {
-      id: random(),
-      imageUrl,
+      image,
       text,
+      userId: objectValue(context, 'rootState.user.user.uid'),
+      teamId: objectValue(context, 'rootState.team.team.id', null),
       createdAt: Date.now(),
     };
-    console.log('xxx create - doc:', doc);
-    const newDoc = this.$fireStore.collection('posts').doc();
+    console.log('xxx post-form.js - create - doc:', doc);
+    const collection = this.$fireStore.collection('posts');
     try {
-      const result = await newDoc.set(doc);
+      const result = await collection.add(doc);
       context.commit('clean');
       context.commit('modal/updateField', {path: 'show', value: null}, {root: true});
-      context.dispatch('posts/load', null, {root: true});
     } catch (error) {
-      console.log('xxx create - error:', error);
+      console.log('xxx post-form.js - create - error:', error);
     }
     // await sleep(1500);
-    // context.commit('panel/loading/setStatus', {name: 'page', value: false}, {root: true});
+    context.commit('loading/setStatus', {name: 'create-post', value: false}, {root: true});
+  },
+  async update(context) {
+    context.commit('loading/setStatus', {name: 'create-post', value: true}, {root: true});
+    const ref = this.$fireStore.collection('posts').doc(context.state.id);
+    try {
+      const result = await ref.update({
+        text: context.state.text,
+      });
+      context.commit('clean');
+      context.commit('modal/updateField', {path: 'show', value: null}, {root: true});
+    } catch (error) {
+      console.log('xxx post-form.js - create - error:', error);
+    }
+    context.commit('loading/setStatus', {name: 'create-post', value: false}, {root: true});
   },
 };

@@ -1,6 +1,6 @@
 <template lang="pug">
   textarea.textarea.description-textarea(
-    placeholder='Description'
+    placeholder="Description"
     v-model="text"
     rows='3'
   )

@@ -1,9 +1,9 @@
 <template lang="pug">
-  .post-thumb
-    button.post-thumb-add-button(
-      type="button"
-      @click="show = 'NewPost'"
-    ) +
+  .post-thumb(
+    :class="{empty: isEmpty}"
+    @click="show = 'PostEdit'"
+  )
+    .post-thumb-add-button(v-if="!isEmpty") +
 </template>
 
 <script>
@@ -11,6 +11,9 @@
 
   export default {
     name: 'ImagesAdd',
+    props: {
+      isEmpty: Boolean,
+    },
     computed: {
       ...mapFields('modal', [
         'show',
