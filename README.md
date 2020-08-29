@@ -89,3 +89,9 @@ $ npm run generate
     }
   }
   ```
+
+## Deployment
+
+- This app can be deployed to Vercel.
+
+  Demo: [https://llama-p.vercel.app/](https://llama-p.vercel.app/)
