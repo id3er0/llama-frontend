@@ -147,16 +147,19 @@ module.exports = {
       // sessionStorage: [],
     }],
     ['@nuxtjs/firebase', {
+      /*
       config: {
-        apiKey: 'AIzaSyA9AhETz6sLfAUW9js3VvPFPbDss8Diic8',
-        authDomain: 'llama-b0d43.firebaseapp.com',
-        databaseURL: 'https://llama-b0d43.firebaseio.com',
-        projectId: 'llama-b0d43',
-        storageBucket: 'llama-b0d43.appspot.com',
-        messagingSenderId: '620019218007',
-        appId: '1:620019218007:web:9c6eaaec49a3fc3ac89512',
+        apiKey: '<apiKey>',
+        authDomain: '<authDomain>,
+        databaseURL: '<databaseURL>',
+        projectId: '<projectId>,
+        storageBucket: '<storageBucket>',
+        messagingSenderId: '<messagingSenderId>',
+        appId: '<appId>',
         // measurementId: '<measurementId>',
       },
+      */
+      config: JSON.parse(process.env.FIREBASE_CONFIG),
       services: {
         auth: true,
         firestore: true,

@@ -2,6 +2,14 @@
 
 > Nuxt.js project
 
+## Demo
+
+- Demo: [https://llama-p.vercel.app/](https://llama-p.vercel.app/)
+
+## Logic
+
+- Link to schema: [https://miro.com/app/board/o9J_kncr6hU=/](https://miro.com/app/board/o9J_kncr6hU=/)
+
 ## Build Setup
 
 ``` bash
@@ -19,59 +27,65 @@ $ npm start
 $ npm run generate
 ```
 
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
+## App setup
 
-## Logic
+### Environment variables
 
-- Link to schema: [https://miro.com/app/board/o9J_kncr6hU=/](https://miro.com/app/board/o9J_kncr6hU=/)
+- You can assign environment variables with `.env.development` and `.env.production` files:
 
+  ```
+  NODE_ENV=development
+  NUXT_ENV_HOST=http://localhost:3000
+  FIREBASE_CONFIG={"apiKey":"<apiKey>","authDomain":"<authDomain>","databaseURL":"<databaseURL>","projectId":"<projectId>","storageBucket":"<storageBucket>","messagingSenderId":"<messagingSenderId>","appId":"<appId>"}
+  ```
+  
 ## Firebase setup
 
-### Authentication
+### Firebase Authentication setup
 
 - Enable "Email/Password" provider.
 
-### Cloud Firestore
+### Firebase Cloud Firestore setup
 
 - Add composite indexes:
 
-```
-Collection ID | Fields indexed                          | Query scope
---------------|-----------------------------------------|------------
-teams         | usersIds Arrays createdAt Ascending     | Collection
-posts         | teamId   Ascending createdAt Descending | Collection
-profiles      | teamsIds Arrays createdAt Descending    | Collection
-posts         | userId   Ascending createdAt Descending | Collection
-```
+  ```
+  Collection ID | Fields indexed                           | Query scope
+  --------------|------------------------------------------|------------
+  teams         | usersIds Arrays     createdAt Ascending  | Collection
+  posts         | teamId   Ascending  createdAt Descending | Collection
+  profiles      | teamsIds Arrays     createdAt Descending | Collection
+  posts         | userId   Ascending  createdAt Descending | Collection
+  ```
 
 - Add rules:
 
-```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if request.auth != null;
-    }
-    match /invites/{inviteId} {
-      allow read: if true;
-      allow write: if request.auth != null;
+  ```
+  rules_version = '2';
+  service cloud.firestore {
+    match /databases/{database}/documents {
+      match /{document=**} {
+        allow read, write: if request.auth != null;
+      }
+      match /invites/{inviteId} {
+        allow read: if true;
+        allow write: if request.auth != null;
+      }
     }
   }
-}
-```
+  ```
 
-### Storage
+### Firebase Storage setup
 
 - Add rules:
 
-```
-rules_version = '2';
-service firebase.storage {
-  match /b/{bucket}/o {
-    match /{allPaths=**} {
-      allow read, write: if request.auth != null;
+  ```
+  rules_version = '2';
+  service firebase.storage {
+    match /b/{bucket}/o {
+      match /{allPaths=**} {
+        allow read, write: if request.auth != null;
+      }
     }
   }
-}
-```
+  ```
