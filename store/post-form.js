@@ -44,8 +44,11 @@ export const actions = {
     const fileNameExt = file.name.split('.').pop().toLowerCase();
     const filePath = `posts/${random()}-${random()}.${fileNameExt}`;
     const storageRef = this.$fireStorage.ref().child(filePath);
+    const metadata = {
+      cacheControl: `public, max-age=${7 * 24 * 60 * 60}, s-maxage=${7 * 24 * 60 * 60}`,
+    };
     try {
-      const snapshot = await storageRef.put(file);
+      const snapshot = await storageRef.put(file, metadata);
       console.log('xxx post-form.js - uploadFile - snapshot:', snapshot);
       const url = await storageRef.getDownloadURL();
       console.log('xxx post-form.js - uploadFile - url:', url);
