@@ -94,4 +94,4 @@ $ npm run generate
 
 - This app can be deployed to Vercel.
 
-  Demo: [https://llama-p.vercel.app/](https://llama-p.vercel.app/)
+  Demo for master branch of this repository: [https://llama-p.vercel.app/](https://llama-p.vercel.app/)
