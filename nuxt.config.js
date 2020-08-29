@@ -1,6 +1,11 @@
+import webpack from 'webpack';
 import Fiber from 'fibers';
 import Sass from 'sass';
+import fs from 'fs';
 import './env-config';
+
+const packageJson = fs.readFileSync('./package.json');
+const version = JSON.parse(packageJson).version || 0;
 
 const customSass = {
   implementation: Sass,
@@ -110,6 +115,16 @@ module.exports = {
         });
       }
     },
+    /*
+    ** Webpack plugins
+     */
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          NUXT_PACKAGE_VERSION: '"' + version + '"',
+        },
+      }),
+    ],
   },
 
   /*
