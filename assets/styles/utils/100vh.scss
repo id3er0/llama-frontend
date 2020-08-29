@@ -1,0 +1,7 @@
+$size__100vh: calc(var(--vh, 1vh) * 100);
+
+@mixin set100vh ($property: height) {
+  #{$property}: 100vh;
+  #{$property}: $size__100vh;
+  //#{$property}: -webkit-fill-available;
+}
